@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Editar Fornecedor{% else %}Adicionar Fornecedor{% endif %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% include "navbar.html" %}
+    
+    {% block content %}
+    <div class="container mt-5">
+        <h1>{% if form.instance.pk %}Editar Fornecedor{% else %}Adicionar Fornecedor{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_nome_fantasia">Nome Fantasia</label>
+                {{ form.nome_fantasia }}
+                {% if form.nome_fantasia.errors %}
+                    <div class="invalid-feedback d-block">
+                        {{ form.nome_fantasia.errors }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_nome_social">Nome Social</label>
+                {{ form.nome_social }}
+            </div>
+            <div class="form-group">
+                <label for="id_cnpj">CNPJ</label>
+                {{ form.cnpj }}
+            </div>
+            <div class="form-group">
+                <label for="id_endereco">Endereço</label>
+                {{ form.endereco }}
+            </div>
+            <div class="form-group">
+                <label for="id_telefone">Telefone</label>
+                {{ form.telefone }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_vendedor">Vendedor</label>
+                {{ form.vendedor }}
+            </div>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="{% url 'fornecedor_crud' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    {% endblock %}
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

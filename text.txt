@@ -1,0 +1,44 @@
+Admin
+123
+
+
+
+@login_required(login_url="/venda/login")
+@has_role_decorator(Gerente)
+def crud(request):
+    funcionarios = Funcionario.objects.all()
+    return render(request, "index.html", {"funcionarios": funcionarios} )
+
+
+@login_required(login_url="/venda/login")
+def salvar(request):
+    if request.method == "POST":
+        vnome = request.POST.get("nome")
+        if vnome:
+            Funcionario.objects.create(nome=vnome)
+        return redirect('salvar')  # Redireciona para a própria view após o POST
+
+    # Quando o método não for POST, renderiza a página com os dados
+    funcionarios = Funcionario.objects.all()
+    return render(request, "index.html", {"funcionarios": funcionarios})
+
+@login_required(login_url="/venda/login")
+def editar(request, id):
+    funcionarios = Funcionario.objects.get(id = id)
+    return render(request, "update.html", {"funcionario": funcionarios})
+
+@login_required(login_url="/venda/login")
+def update(request, id):
+    vnome = request.POST.get("nome")
+    funcionarios = Funcionario.objects.get(id = id)
+    funcionarios.nome = vnome
+    funcionarios.save()
+
+    return redirect(crud)
+
+@login_required(login_url="/venda/login")
+def delete(request, id):
+    funcionarios = Funcionario.objects.get(id = id)
+    funcionarios.delete()
+
+    return redirect(crud)

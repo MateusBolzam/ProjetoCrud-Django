@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+    <div class="container mt-5">
+        <h1 class="text-center">Lista de Subgrupos</h1>
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{% url 'subgrupo_salvar' %}" class="btn btn-primary">Adicionar Subgrupo</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Grupo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for subgrupo in subgrupos %}
+                    <tr>
+                        <td>{{ subgrupo.nome }}</td>
+                        <td>{{ subgrupo.descricao }}</td>
+                        <td>{{ subgrupo.grupo }}</td>
+                        <td>
+                            <a href="{% url 'subgrupo_editar' subgrupo.id %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'subgrupo_delete' subgrupo.id %}" class="btn btn-danger btn-sm">Deletar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
