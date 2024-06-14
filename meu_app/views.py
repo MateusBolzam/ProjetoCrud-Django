@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Fornecedor, Grupo, Subgrupo
-from .forms import FornecedorForm, GrupoForm, SubgrupoForm
+from .models import Fornecedor, Grupo, Subgrupo, Produto , ItemVenda, Venda
+from .forms import FornecedorForm, GrupoForm, SubgrupoForm, ProdutoForm , ItemVendaForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
@@ -187,3 +187,87 @@ def subgrupo_delete(request, id):
         subgrupo.delete()
         return redirect('subgrupo_crud')
     return render(request, 'subgrupo_delete.html', {'subgrupo': subgrupo})
+
+# Produtos
+
+@login_required(login_url="/venda/login")
+@has_role_decorator(Gerente)
+def produto_list(request):
+    produtos = Produto.objects.all()
+    return render(request, "produto_list.html", {"produtos": produtos})
+
+@login_required(login_url="/venda/login")
+@has_role_decorator(Gerente)
+def produto_create(request):
+    if request.method == "POST":
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm()
+    return render(request, "produto_form.html", {"form": form})
+
+@login_required(login_url="/venda/login")
+@has_role_decorator(Gerente)
+def produto_update(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    if request.method == "POST":
+        form = ProdutoForm(request.POST, instance=produto)
+        if form.is_valid():
+            form.save()
+            return redirect('produto_list')
+    else:
+        form = ProdutoForm(instance=produto)
+    return render(request, "produto_form.html", {"form": form})
+
+@login_required(login_url="/venda/login")
+@has_role_decorator(Gerente)
+def produto_delete(request, id):
+    produto = get_object_or_404(Produto, id=id)
+    if request.method == "POST":
+        produto.delete()
+        return redirect('produto_list')
+    return render(request, "produto_delete.html", {'produto': produto})
+
+@login_required(login_url="/venda/login")
+def adicionar_ao_carrinho(request):
+    venda, created = Venda.objects.get_or_create(finalizado=False)
+    if request.method == "POST":
+        form = ItemVendaForm(request.POST)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.venda = venda
+            item.save()
+            return redirect('ver_carrinho')
+    else:
+        form = ItemVendaForm()
+    return render(request, 'adicionar_carrinho.html', {'form': form})
+
+@login_required(login_url="/venda/login")
+def ver_carrinho(request):
+    venda = get_object_or_404(Venda, finalizado=False)
+    itens = venda.itens.all()
+    return render(request, 'ver_carrinho.html', {'venda': venda, 'itens': itens})
+
+@login_required(login_url="/venda/login")
+def finalizar_venda(request):
+    venda = get_object_or_404(Venda, finalizado=False)
+    venda.finalizado = True
+    venda.save()
+    return redirect('venda_concluida')
+
+@login_required(login_url="/venda/login")
+def venda_concluida(request):
+    return render(request, 'venda_concluida.html')
+
+@login_required(login_url="/venda/login")
+def vendas_realizadas(request):
+    vendas = Venda.objects.filter(finalizado=True)
+    return render(request, 'vendas_realizadas.html', {'vendas': vendas})
+
+@login_required(login_url="/venda/login")
+def detalhes_venda(request, pk):
+    venda = get_object_or_404(Venda, pk=pk)
+    itens = venda.itens.all()
+    return render(request, 'detalhes_venda.html', {'venda': venda, 'itens': itens})

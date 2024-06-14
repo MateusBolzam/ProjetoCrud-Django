@@ -23,4 +23,16 @@ urlpatterns = [
     path('subgrupos/novo/', views.subgrupo_salvar, name='subgrupo_salvar'),
     path('subgrupos/<int:id>/editar/', views.subgrupo_editar, name='subgrupo_editar'),
     path('subgrupos/<int:id>/deletar/', views.subgrupo_delete, name='subgrupo_delete'),
+    
+    path('produtos/', views.produto_list, name='produto_list'),
+    path('produtos/novo/', views.produto_create, name='produto_create'),
+    path('produtos/<int:id>/editar/', views.produto_update, name='produto_update'),
+    path('produtos/<int:id>/deletar/', views.produto_delete, name='produto_delete'),
+    
+    path('vendas/adicionar/', views.adicionar_ao_carrinho, name='adicionar_ao_carrinho'),
+    path('vendas/carrinho/', views.ver_carrinho, name='ver_carrinho'),
+    path('vendas/finalizar/', views.finalizar_venda, name='finalizar_venda'),
+    path('vendas/concluida/', views.venda_concluida, name='venda_concluida'),
+    path('vendas/realizadas/', views.vendas_realizadas, name='vendas_realizadas'),
+    path('vendas/<int:pk>/', views.detalhes_venda, name='detalhes_venda'),
 ]

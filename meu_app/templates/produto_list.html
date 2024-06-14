@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h1 class="text-center">Lista de Produtos</h1>
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{% url 'produto_create' %}" class="btn btn-primary">Adicionar Produto</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Preço de Custo</th>
+                        <th>Preço de Venda</th>
+                        <th>Peso</th>
+                        <th>Compra</th>
+                        <th>Vendas</th>
+                        <th>Fornecedor</th>
+                        <th>Grupo</th>
+                        <th>Subgrupo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                        <td>{{ produto.nome }}</td>
+                        <td>{{ produto.descricao }}</td>
+                        <td>{{ produto.preco_custo }}</td>
+                        <td>{{ produto.preco_venda }}</td>
+                        <td>{{ produto.peso }}</td>
+                        <td>{{ produto.compra }}</td>
+                        <td>{{ produto.vendas }}</td>
+                        <td>{{ produto.fornecedor }}</td>
+                        <td>{{ produto.grupo }}</td>
+                        <td>{{ produto.sub_grupo }}</td>
+                        <td>
+                            <a href="{% url 'produto_update' produto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'produto_delete' produto.id %}" class="btn btn-danger btn-sm">Deletar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
