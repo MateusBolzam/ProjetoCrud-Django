@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizar Vendas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container mt-5">
+        <h2>Visualizar Vendas</h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Gráfico de Linha: Custo Total e Venda Total Mensal</h4>
+                <div>{{ graph_linha|safe }}</div>
+            </div>
+            <div class="col-md-6">
+                <h4>Gráfico de Barras: Quantidade Comprada e Vendida Total Mensal</h4>
+                <div>{{ graph_barras|safe }}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Gráfico de Dispersão: Percentual de Lucro dos Produtos Vendidos</h4>
+                <div>{{ graph_dispersao|safe }}</div>
+            </div>
+            <div class="col-md-6">
+                <h4>Gráfico de Pizza: 3 Produtos Mais Vendidos em Quantidade Mensal</h4>
+                <div>{{ graph_pizza|safe }}</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Gráfico de Barras e Linha: Grupos de Produtos Mais Vendidos</h4>
+                <div>{{ graph_barras_linha|safe }}</div>
+            </div>
+            <div class="col-md-6">
+                <h4>Produtos com Estoque Baixo</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Preço de Venda</th>
+                            <th scope="col">Estoque</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produto in produtos_estoque_baixo %}
+                        <tr>
+                            <td>{{ produto.nome }}</td>
+                            <td>{{ produto.descricao }}</td>
+                            <td>{{ produto.preco_venda }}</td>
+                            <td>{{ produto.estoque }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

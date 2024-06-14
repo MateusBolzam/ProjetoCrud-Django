@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bcc07a747c66bfa27cee6244b38ffb06da861ef041315c14bdfbad3f61c4bd95"
+            "sha256": "897f6b66b25b8d9d38dd4c6dbb58afeca85cfc8df80c80610ed7e90eb57f408a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -41,6 +41,23 @@
             "index": "pypi",
             "version": "==3.2.0"
         },
+        "packaging": {
+            "hashes": [
+                "sha256:026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002",
+                "sha256:5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==24.1"
+        },
+        "plotly": {
+            "hashes": [
+                "sha256:68fc1901f098daeb233cc3dd44ec9dc31fb3ca4f4e53189344199c43496ed006",
+                "sha256:859fdadbd86b5770ae2466e542b761b247d1c6b49daed765b95bb8c7063e7469"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==5.22.0"
+        },
         "sqlparse": {
             "hashes": [
                 "sha256:714d0a4932c059d16189f58ef5411ec2287a4360f17cdd0edd2d09d4c5087c93",
@@ -48,6 +65,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==0.5.0"
+        },
+        "tenacity": {
+            "hashes": [
+                "sha256:3649f6443dbc0d9b01b9d8020a9c4ec7a1ff5f6f3c6c8a036ef371f573fe9185",
+                "sha256:953d4e6ad24357bceffbc9707bc74349aca9d245f68eb65419cf0c249a1949a2"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==8.3.0"
         },
         "tzdata": {
             "hashes": [

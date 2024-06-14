@@ -22,7 +22,7 @@ class SubgrupoForm(forms.ModelForm):
 class ProdutoForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ['nome', 'descricao', 'preco_custo', 'preco_venda', 'peso', 'compra', 'vendas', 'fornecedor', 'grupo', 'sub_grupo']
+        fields = ['nome', 'descricao', 'preco_custo', 'preco_venda', 'peso', 'estoque', 'vendas', 'fornecedor', 'grupo', 'sub_grupo']
         
 class ItemVendaForm(forms.ModelForm):
     class Meta:
